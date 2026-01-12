@@ -7,7 +7,7 @@ function UserStatus() {
   return (
     <div className='p-4 border-4 rounded-2xl'>
         <div className='flex gap-3 items-center'>
-            <Image src={'/walking.gif'} alt='walking' width={100} height={100}/>
+            <Image src={'/walking.gif'} alt='walking' width={100} height={100} unoptimized={true}/>
             <h2 className='font-game text-2xl'>{user?.firstName}</h2>
         </div>
         <div className='grid grid-cols-2 gap-5'>

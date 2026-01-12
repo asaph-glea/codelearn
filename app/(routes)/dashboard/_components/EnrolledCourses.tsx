@@ -2,7 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import React, {useState} from 'react';
+import Link from 'next/link';
+import  {useState} from 'react';
 
 function EnrolledCourses() {
 
@@ -17,7 +18,9 @@ function EnrolledCourses() {
        <div className='flex flex-col items-center gap-3 p-7 border rounded-2xl bg-zinc-900'>
             <Image src={'/books.png'} alt='book' width={90} height={90}/>
             <h2  className='text-2xl font-game'>No enrolled courses</h2>
-            <Button variant={'pixel'} className='font-game text-lg' size={'lg'}>Browse All Courses</Button>
+            <Link href={'/courses'} >
+              <Button variant={'pixel'} className='font-game text-lg' size={'lg'}>Browse All Courses</Button>
+            </Link>
        </div>
        :
        <div>
