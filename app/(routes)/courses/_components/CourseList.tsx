@@ -12,7 +12,24 @@ export type Course = {
   desc:string,
   level:string,
   bannerImage:string,
-  tag:string
+  tag:string,
+  chapters?:Chapter[]
+}
+
+type Chapter = {
+  chapterId:number,
+  couserId:number,
+  desc:string,
+  name:string,
+  id:number,
+  exercises:exercise[]
+}
+
+type exercise ={
+  name:string,
+  slug:string,
+  xp:number,
+  difficulty:string
 }
 
 function CourseList() {
