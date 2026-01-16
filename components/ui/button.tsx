@@ -20,7 +20,10 @@ const buttonVariants = cva(
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
         pixel:
-          "bg-yellow-500 text-black hover:bg-yellow-400 rounded-none border-2 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] transition-all duration-150",
+          "bg-yellow-400 text-black border-2 border-black hover:bg-yellow-400 rounded-xl  shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] transition-all duration-150",
+        pixelDisabled:
+        "bg-gray-400 text-black border-2 border-black hover:bg-yellow-400 rounded-xl  shadow-[4px_4px_0px_rgba(0,0,0,1)] active:shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:brightness-100 cursor-not-allowed transition-all duration-150",
+   
      
       },
       size: {

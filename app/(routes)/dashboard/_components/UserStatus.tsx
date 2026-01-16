@@ -2,6 +2,8 @@
 import { useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 
+
+
 function UserStatus() {
     const {user} = useUser();
   return (
