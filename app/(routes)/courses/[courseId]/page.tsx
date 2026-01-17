@@ -46,7 +46,9 @@ function CourseDetail() {
                 />
             </div>
             <div>
-               <CourseStatus courseDetail = {courseDetail}/>
+               <CourseStatus 
+               loading={loading} 
+               courseDetail = {courseDetail}/>
                <UpgradeToPro/>
                <CommunityHelpSection/>
             </div>

@@ -2,13 +2,15 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { Progress } from "@/components/ui/progress"
 import { Course } from '../../_components/CourseList'
+import { Skeleton } from '@/components/ui/skeleton'
 
 
 type Props = {
     courseDetail:Course | undefined
+    loading: boolean
 }
 
-function CourseStatus({courseDetail}:Props) {
+function CourseStatus({courseDetail, loading}:Props) {
 
     const [counts, setCounts] = useState<{
         totalExce:number,
@@ -45,26 +47,33 @@ function CourseStatus({courseDetail}:Props) {
     }
   return (
     <div className='font-game p-4 border-4 rounded-xl w-full'>
-        <h2 className='text-3xl'>Course Progress</h2>
-        <div className='flex items-center gap-5 mt-4'>
-            <Image src={'/book.png'} alt='book' width={40} height={40}/>
-            <div className='w-full'>
-                <h2 className='flex justify-between text-2xl'>Exercises 
-                    <span className='text-gray-50'>1/{counts?.totalExce}</span></h2>
-                <Progress value={20} className='mt-2'/>
+        {loading ? <div>
+        <Skeleton className='w-full h-100 rounded-xl'/>
+    </div>    
+    :
+        <div>
+            <h2 className='text-3xl'>Course Progress</h2>
+            <div className='flex items-center gap-5 mt-4'>
+                <Image src={'/book.png'} alt='book' width={40} height={40}/>
+                <div className='w-full'>
+                    <h2 className='flex justify-between text-2xl'>Exercises 
+                        <span className='text-gray-50'>{courseDetail?.completedExercises?.length}/{counts?.totalExce}</span></h2>
+                        {/* @ts-ignore */}
+                    <Progress value={UpdateProgress(courseDetail?.completedExercises?.length,counts?.totalExce)} className='mt-2'/>
+                </div>
+            </div>
+
+            <div className='flex items-center gap-5 mt-4'>
+                <Image src={'/stars.png'} alt='star' width={40} height={40}/>
+                <div className='w-full'>
+                    <h2 className='flex justify-between text-2xl'>Xp earned 
+                        <span className='text-gray-50'> {courseDetail?.courseEnrolledInfo?.xpEarned}/{counts?.totalXP}</span></h2>
+                        {/* @ts-ignore */}
+                    <Progress value={UpdateProgress(courseDetail?.courseEnrolledInfo?.xpEarned ?? 0 ,counts?.totalXP)} className='mt-2'/>
+                </div>
             </div>
         </div>
-
-        <div className='flex items-center gap-5 mt-4'>
-            <Image src={'/stars.png'} alt='star' width={40} height={40}/>
-            <div className='w-full'>
-                <h2 className='flex justify-between text-2xl'>Xp earned 
-                    <span className='text-gray-50'> {courseDetail?.courseEnrolledInfo?.xpEarned}/{counts?.totalXP}</span></h2>
-                     {/* @ts-ignore */}
-                <Progress value={UpdateProgress(courseDetail?.courseEnrolledInfo?.xpEarned ?? 0 ,counts?.totalXP)} className='mt-2'/>
-            </div>
-        </div>
-
+        }
     </div>
   )
 }
