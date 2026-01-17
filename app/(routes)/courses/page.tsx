@@ -16,7 +16,7 @@ function Courses() {
         </div>
 
        <div className='mt-6 sm:mt-1 md:mt-4 px-10 md:px-24 lg:px-36'>
-            <h2 className='font-game'>All Courses</h2>
+            <h2 className='font-game'>All Courses </h2>
             <CourseList/>
         </div>   
     </div>

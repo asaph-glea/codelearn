@@ -19,6 +19,38 @@ type Props = {
 }
 
 function CourseChapters({loading, courseDetail}:Props) {
+
+  const EnableExercise = (
+    chapterIndex:number,
+    exerciseIndex:number,
+    chapterExerciseLenght:number
+  )=>{
+    const completed = courseDetail?.completedExercises;
+
+    // if not completed, enable first exercise only
+    if (!completed || completed.length === 0) {
+      return chapterIndex === 0 && exerciseIndex ===0
+    }
+    // last completed
+    const last = completed[completed.length-1];
+
+    //conver to global exercise number
+    const currentExerciseNumber = chapterIndex * chapterExerciseLenght + exerciseIndex + 1
+
+    const lastCompletedNumber = (last.chapterId - 1) * chapterExerciseLenght + last.exerciseId;
+
+    return currentExerciseNumber === lastCompletedNumber + 2;
+
+  }
+
+  const isExerciseCompleted = (chapterId:number, execriseId:number)=>{
+    const completeChapters = courseDetail?.completedExercises;
+    
+    const completeChapter = completeChapters?.find(item => (item.chapterId == chapterId && item.exerciseId == execriseId));
+
+    return completeChapter ? true : false
+  }
+
   return (
     <div>
       { courseDetail?.chapters?.length == 0 ?
@@ -39,23 +71,28 @@ function CourseChapters({loading, courseDetail}:Props) {
                 </AccordionTrigger>
               <AccordionContent>
                <div className='p-7 bg-zinc-900 rounded-2xl'>
-                {chapter?.exercises.map((exercise, indexExc)=>(
-                  <div key={indexExc} className='flex items-center justify-between mt-2'>
-                    <div className='flex items-center gap-10 font-game'>
-                      <h2 className='text-2xl'>Exercise {index * chapter?.exercises?.length + indexExc + 1}</h2>
-                      <h2 className='text-2xl'>{exercise.name}</h2>
-                    </div>
+                    {chapter?.exercises.map((exercise, indexExc)=>(
+                     <div key={indexExc} className='flex items-center justify-between mt-2'>
+                       <div className='flex items-center gap-10 font-game'>
+                        <h2 className='text-2xl'>Exercise {index * chapter?.exercises?.length + indexExc + 1}</h2>
+                         <h2 className='text-2xl'>{exercise.name}</h2>
+                      </div>
 
-                    {/* <Button variant={'pixel'}>{exercise?.xp} xp</Button> */}
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button variant={'pixelDisabled'}>???</Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className='font-game text-lg'>Please Enroll first</p>
-                      </TooltipContent>
-                    </Tooltip>
+                      { EnableExercise(index,indexExc,chapter?.exercises.length) ? <Button variant={'pixel'}>{exercise?.xp} xp</Button>
+                      :
+                      isExerciseCompleted(chapter?.chapterId,indexExc+1) ? <Button variant={'pixel'} className='bg-green-700'>Completed</Button>
+                      :
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant={'pixelDisabled'}>???</Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className='font-game text-lg'>Please Enroll first</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    }
                   </div>
+                
                 ))}
                </div>
               </AccordionContent>
