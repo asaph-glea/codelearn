@@ -13,6 +13,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import Link from 'next/link'
 type Props = {
   loading:boolean,
   courseDetail:Course|undefined
@@ -71,14 +72,17 @@ function CourseChapters({loading, courseDetail}:Props) {
                 </AccordionTrigger>
               <AccordionContent>
                <div className='p-7 bg-zinc-900 rounded-2xl'>
-                    {chapter?.exercises.map((exercise, indexExc)=>(
+                    {chapter?.exercises.map((exc, indexExc)=>(
                      <div key={indexExc} className='flex items-center justify-between mt-2'>
                        <div className='flex items-center gap-10 font-game'>
                         <h2 className='text-2xl'>Exercise {index * chapter?.exercises?.length + indexExc + 1}</h2>
-                         <h2 className='text-2xl'>{exercise.name}</h2>
+                         <h2 className='text-2xl'>{exc.name}</h2>
                       </div>
 
-                      { EnableExercise(index,indexExc,chapter?.exercises.length) ? <Button variant={'pixel'}>{exercise?.xp} xp</Button>
+                      { EnableExercise(index,indexExc,chapter?.exercises.length) ?
+                      <Link href={'/courses/' + courseDetail?.courseId + '/' + chapter?.chapterId + '/' + exc?.slug}>
+                        <Button variant={'pixel'}>{exc?.xp} xp</Button>
+                      </Link>
                       :
                       isExerciseCompleted(chapter?.chapterId,indexExc+1) ? <Button variant={'pixel'} className='bg-green-700'>Completed</Button>
                       :
