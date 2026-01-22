@@ -67,7 +67,7 @@ function CourseStatus({courseDetail, loading}:Props) {
                 <Image src={'/stars.png'} alt='star' width={40} height={40}/>
                 <div className='w-full'>
                     <h2 className='flex justify-between text-2xl'>Xp earned 
-                        <span className='text-gray-50'> {courseDetail?.courseEnrolledInfo?.xpEarned}/{counts?.totalXP}</span></h2>
+                        <span className='text-gray-50'>{courseDetail?.courseEnrolledInfo?.xpEarned}/{counts?.totalXP}</span></h2>
                         {/* @ts-ignore */}
                     <Progress value={UpdateProgress(courseDetail?.courseEnrolledInfo?.xpEarned ?? 0 ,counts?.totalXP)} className='mt-2'/>
                 </div>
